@@ -30,7 +30,7 @@ public class Worker(IOptions<SisConfig> sisOptions, ILogger<Worker> logger, IHos
             await ansClient.UpdateUser(tar.Id, true);
         }
 
-        var toRemove = currentUsers.Values.Where(u => u.HasExtraTime && !targetStudentIds.Contains(u.StudentNumber)).ToArray();
+        var toRemove = currentUsers.Values.Where(u => !targetStudentIds.Contains(u.StudentNumber)).ToArray();
         foreach (var tar in toRemove)
         {
             logger.LogInformation($"Removing extra time from {tar.Id} ({tar.StudentNumber})");
